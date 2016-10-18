@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>WPyIDE Powered by BXT'KK</title>
+<!-- Bootstrap core css file -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<!-- Create a simple CodeMirror instance -->
+<link rel="stylesheet" href="codemirror/lib/codemirror.css">
+<style>
+body {
+	background: #DDD url(imgs/python_bg.png) no-repeat fixed center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+pre {
+	background-color:#333;
+	color:#EEE;
+	border-color: #333;
+	-webkit-tab-size:4;
+	-moz-tab-size:4;
+	-o-tab-size:4;
+	tab-size:4;
+}
+</style>
+</head>
+<body>
+<div class="navbar navbar-default navbar-static-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<!--a class="navbar-brand" href="#">WPyIDE</a-->
+			<a class="navbar-brand" href="#">
+				<span>
+					WPyIDE
+					<img height="20" alt="Brand" src="imgs/py3.png">
+				</span>
+			</a>
+		</div>
+		<div class="collapse navbar-collapse" id="navbar-ex-collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li class="active">
+				<a href="#">IDE</a>
+				</li>
+				<li>
+				<a href="#">Tutorial</a>
+				</li>
+				<li><a href="#">Help</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div id="editorArea">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<a class="btn btn-block btn-primary" style="border-radius:0" onclick="runPython();"><b>RUN</b></a>
+				<hr>
+				<pre><code id="pythonLog">&gt;&gt;&gt;&nbsp;Hello Wei-Python-IDE(Py3) ´ ▽ ` )ﾉ</code></pre>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="codemirror/lib/codemirror.js"></script>
+<script src="codemirror/mode/python/python.js"></script>
+<script>
+var editorArea = document.getElementById("editorArea");
+var editor = CodeMirror(editorArea, {
+	mode: "python",
+	indentUnit: 4
+});
+</script>
+<script src="Brython/brython.js"></script>
+<script id="pythonTmp" type="text/python3">
+</script>
+<script>
+var pythonTmp = document.getElementById("pythonTmp");
+var pythonLog = document.getElementById("pythonLog");
+var oldLog = console.log;
+function runPython() {
+	pythonTmp.innerHTML = editorArea.innerText.replace(/[\u200B]/g, '');
+	console.log = function (message) {
+		pythonLog.innerText += message;
+	}
+	pythonLog.innerText = "";
+	brython();
+	console.log = oldLog;
+}
+</script>
