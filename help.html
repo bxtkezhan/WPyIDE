@@ -46,13 +46,13 @@ pre {
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-ex-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active">
+				<li>
 					<a href="/">IDE</a>
 				</li>
 				<li>
 					<a href="/tutorial.html">Tutorial</a>
 				</li>
-				<li>
+				<li class="active">
 					<a href="/help.html">Help</a>
 				</li>
 			</ul>
@@ -67,7 +67,7 @@ pre {
 				</div>
 			</div>
 			<div class="col-md-6">
-				<a class="btn btn-block btn-primary" style="border-radius:0" onclick="runPython();"><b>RUN</b></a>
+				<a id="runButton" class="btn btn-block btn-primary" style="border-radius:0" onclick="runPython();"><b>RUN</b></a>
 				<hr>
 				<pre><code id="pythonLog">&gt;&gt;&gt;&nbsp;Hello Wei-Python-IDE(Py3) ´ ▽ ` )ﾉ</code></pre>
 			</div>
@@ -81,11 +81,27 @@ pre {
 <script src="codemirror/lib/codemirror.js"></script>
 <script src="codemirror/mode/python/python.js"></script>
 <script>
-var editorArea = document.getElementById("editorArea");
-var editor = CodeMirror(editorArea, {
-	mode: "python",
-	indentUnit: 4
-});
+var xmlhttp;
+if (window.XMLHttpRequest) {
+	// code for IE7+, Firefox, Chrome, Opera, Safari
+	xmlhttp=new XMLHttpRequest();
+} else {
+	// code for IE6, IE5
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+xmlhttp.onreadystatechange=function() {
+	var editorArea = document.getElementById("editorArea");
+	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		pythonCode = xmlhttp.responseText;
+		var editor = CodeMirror(editorArea, {
+			value: pythonCode,
+			mode: "python",
+			indentUnit: 4
+		});
+	}
+}
+xmlhttp.open("GET","/help.py",true);
+xmlhttp.send();
 </script>
 <script src="Brython/brython.js"></script>
 <script id="pythonTmp" type="text/python3">

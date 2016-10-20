@@ -5,8 +5,7 @@
 <title>WPyIDE Powered by BXT'KK</title>
 <!-- Bootstrap core css file -->
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-<!-- Create a simple CodeMirror instance -->
-<link rel="stylesheet" href="codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
 <style>
 body {
 	background: #DDD url(imgs/python_bg.png) no-repeat fixed center;
@@ -46,10 +45,10 @@ pre {
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-ex-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active">
+				<li>
 					<a href="/">IDE</a>
 				</li>
-				<li>
+				<li class="active">
 					<a href="/tutorial.html">Tutorial</a>
 				</li>
 				<li>
@@ -62,15 +61,6 @@ pre {
 <div class="section">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6">
-				<div id="editorArea">
-				</div>
-			</div>
-			<div class="col-md-6">
-				<a class="btn btn-block btn-primary" style="border-radius:0" onclick="runPython();"><b>RUN</b></a>
-				<hr>
-				<pre><code id="pythonLog">&gt;&gt;&gt;&nbsp;Hello Wei-Python-IDE(Py3) ´ ▽ ` )ﾉ</code></pre>
-			</div>
 		</div>
 	</div>
 </div>
@@ -78,29 +68,4 @@ pre {
 </html>
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="codemirror/lib/codemirror.js"></script>
-<script src="codemirror/mode/python/python.js"></script>
-<script>
-var editorArea = document.getElementById("editorArea");
-var editor = CodeMirror(editorArea, {
-	mode: "python",
-	indentUnit: 4
-});
-</script>
-<script src="Brython/brython.js"></script>
-<script id="pythonTmp" type="text/python3">
-</script>
-<script>
-var pythonTmp = document.getElementById("pythonTmp");
-var pythonLog = document.getElementById("pythonLog");
-var oldLog = console.log;
-function runPython() {
-	pythonTmp.innerHTML = editorArea.innerText.replace(/[\u200B]/g, '');
-	console.log = function (message) {
-		pythonLog.innerText += message;
-	}
-	pythonLog.innerText = "";
-	brython();
-	console.log = oldLog;
-}
-</script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
