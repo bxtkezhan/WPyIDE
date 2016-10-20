@@ -9,15 +9,18 @@ WPyIDE是一款为Python新人打造的Web版IDE，
 '''
 
 # 引入JS库
-from browser import alert, document
+from browser import (
+    alert, 
+    document
+)
 
-message = '''
-Nice，干的漂亮(｡･ω･)ﾉ
+msg = '''
+Nice！干的漂亮(｡･ω･)ﾉ
 '''
 
 # 弹窗输出
-alert(message)
+alert(msg)
 # 终端打印
-print(message)
+print(msg)
 # 页面显示
-document['runButton'].text = message
+document['runButton'].text = msg

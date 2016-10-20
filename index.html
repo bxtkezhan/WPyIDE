@@ -84,7 +84,8 @@ pre {
 var editorArea = document.getElementById("editorArea");
 var editor = CodeMirror(editorArea, {
 	mode: "python",
-	indentUnit: 4
+	indentUnit: 4,
+	lineNumbers: true
 });
 </script>
 <script src="Brython/brython.js"></script>
@@ -95,7 +96,8 @@ var pythonTmp = document.getElementById("pythonTmp");
 var pythonLog = document.getElementById("pythonLog");
 var oldLog = console.log;
 function runPython() {
-	pythonTmp.innerHTML = editorArea.innerText.replace(/[\u200B]/g, '');
+	// pythonTmp.innerHTML = editorArea.innerText.replace(/[\u200B]/g, '');
+	pythonTmp.innerHTML = editor.getValue();
 	console.log = function (message) {
 		pythonLog.innerText += message;
 	}

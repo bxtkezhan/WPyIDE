@@ -82,6 +82,7 @@ pre {
 <script src="codemirror/mode/python/python.js"></script>
 <script>
 var xmlhttp;
+var editor;
 if (window.XMLHttpRequest) {
 	// code for IE7+, Firefox, Chrome, Opera, Safari
 	xmlhttp=new XMLHttpRequest();
@@ -93,10 +94,11 @@ xmlhttp.onreadystatechange=function() {
 	var editorArea = document.getElementById("editorArea");
 	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 		pythonCode = xmlhttp.responseText;
-		var editor = CodeMirror(editorArea, {
+		editor = CodeMirror(editorArea, {
 			value: pythonCode,
 			mode: "python",
-			indentUnit: 4
+			indentUnit: 4,
+			lineNumbers: true
 		});
 	}
 }
@@ -111,7 +113,8 @@ var pythonTmp = document.getElementById("pythonTmp");
 var pythonLog = document.getElementById("pythonLog");
 var oldLog = console.log;
 function runPython() {
-	pythonTmp.innerHTML = editorArea.innerText.replace(/[\u200B]/g, '');
+	// pythonTmp.innerHTML = editorArea.innerText.replace(/[\u200B]/g, '');
+	pythonTmp.innerHTML = editor.getValue();
 	console.log = function (message) {
 		pythonLog.innerText += message;
 	}
