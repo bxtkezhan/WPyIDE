@@ -6,7 +6,8 @@
 <!-- Bootstrap core css file -->
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
 <!-- Create a simple CodeMirror instance -->
-<link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+<!--link rel="stylesheet" href="/codemirror/lib/codemirror.css"-->
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
 <style>
 body {
 	background: #DDD url(/imgs/python_bg.png) no-repeat fixed center;
@@ -46,7 +47,7 @@ pre {
 		</div>
 		<div class="collapse navbar-collapse" id="navbar-ex-collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active">
+				<li>
 					<a href="/">IDE</a>
 				</li>
 				<li>
@@ -62,15 +63,35 @@ pre {
 <div class="section">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-12">
+				<h1 class="text-center">5分钟了解 Python</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<hr>
+<div class="section">
+	<div class="container">
+		<div class="row">
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-default">
+					<!--div class="panel-heading">
+					</div-->
+					<div id="article_content" class="panel-body">
+					</div>
+				</div>
+			</div>
+			<!--div class="col-md-6">
 				<div id="editorArea">
 				</div>
 			</div>
 			<div class="col-md-6">
-				<a class="btn btn-block btn-primary" style="border-radius:0" onclick="runPython();"><b>RUN</b></a>
+				<a id="runButton" class="btn btn-block btn-primary" style="border-radius:0" onclick="runPython();"><b>RUN</b></a>
 				<hr>
 				<pre><code id="pythonLog">&gt;&gt;&gt;&nbsp;Hello Wei-Python-IDE(Py3) ´ ▽ ` )ﾉ</code></pre>
-			</div>
+			</div-->
 		</div>
 	</div>
 </div>
@@ -78,15 +99,56 @@ pre {
 </html>
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="/codemirror/lib/codemirror.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.4.3/showdown.min.js"></script>
+<script>
+var converter = new showdown.Converter();
+var markdown = '';
+var article = document.getElementById("article_content");
+var xmlhttp;
+if (window.XMLHttpRequest) {
+	// code for IE7+, Firefox, Chrome, Opera, Safari
+	xmlhttp=new XMLHttpRequest();
+} else {
+	// code for IE6, IE5
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+xmlhttp.onreadystatechange=function() {
+	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		markdown = xmlhttp.responseText;
+		article.innerHTML = converter.makeHtml(markdown);
+	}
+}
+xmlhttp.open("GET","/tutorials/chapter_1.md",true);
+xmlhttp.send();
+</script>
+<!--script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script-->
+<!--script src="/codemirror/lib/codemirror.js"></script>
 <script src="/codemirror/mode/python/python.js"></script>
 <script>
-var editorArea = document.getElementById("editorArea");
-var editor = CodeMirror(editorArea, {
-	mode: "python",
-	indentUnit: 4,
-	lineNumbers: true
-});
+var xmlhttp;
+var editor;
+if (window.XMLHttpRequest) {
+	// code for IE7+, Firefox, Chrome, Opera, Safari
+	xmlhttp=new XMLHttpRequest();
+} else {
+	// code for IE6, IE5
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+xmlhttp.onreadystatechange=function() {
+	var editorArea = document.getElementById("editorArea");
+	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		pythonCode = xmlhttp.responseText;
+		editor = CodeMirror(editorArea, {
+			value: pythonCode,
+			mode: "python",
+			indentUnit: 4,
+			lineNumbers: true
+		});
+	}
+}
+xmlhttp.open("GET","/help.py",true);
+xmlhttp.send();
 </script>
 <script src="/Brython/brython.js"></script>
 <script id="pythonTmp" type="text/python3">
@@ -105,4 +167,4 @@ function runPython() {
 	brython();
 	console.log = oldLog;
 }
-</script>
+</script-->
