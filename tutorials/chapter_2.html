@@ -5,10 +5,12 @@
 <title>WPyIDE Powered by BXT'KK</title>
 <!-- Bootstrap core css file -->
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<!-- Create a simple CodeMirror instance -->
+<!--link rel="stylesheet" href="/codemirror/lib/codemirror.css"-->
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css">
 <style>
 body {
-	background: #DDD url(imgs/python_bg.png) no-repeat fixed center;
+	background: #DDD url(/imgs/python_bg.png) no-repeat fixed center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -36,10 +38,10 @@ pre {
 			<span class="icon-bar"></span>
 			</button>
 			<!--a class="navbar-brand" href="#">WPyIDE</a-->
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="/">
 				<span>
 					WPyIDE
-					<img height="20" alt="Brand" src="imgs/py3.png">
+					<img height="20" alt="Brand" src="/imgs/py3.png">
 				</span>
 			</a>
 		</div>
@@ -48,7 +50,7 @@ pre {
 				<li>
 					<a href="/">IDE</a>
 				</li>
-				<li class="active">
+				<li>
 					<a href="/tutorial.html">Tutorial</a>
 				</li>
 				<li>
@@ -61,6 +63,22 @@ pre {
 <div class="section">
 	<div class="container">
 		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-center">图解 Python</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<hr>
+<div class="section">
+	<div class="container">
+		<div class="row">
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 panel panel-default">
+				<div id="article_content" class="panel-body">
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -68,4 +86,25 @@ pre {
 </html>
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.4.3/showdown.min.js"></script>
+<script>
+var converter = new showdown.Converter();
+var markdown = '';
+var article = document.getElementById("article_content");
+var xmlhttp;
+if (window.XMLHttpRequest) {
+	// code for IE7+, Firefox, Chrome, Opera, Safari
+	xmlhttp=new XMLHttpRequest();
+} else {
+	// code for IE6, IE5
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+xmlhttp.onreadystatechange=function() {
+	if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+		markdown = xmlhttp.responseText;
+		article.innerHTML = converter.makeHtml(markdown);
+	}
+}
+xmlhttp.open("GET","/tutorials/chapter_2.md",true);
+xmlhttp.send();
+</script>
