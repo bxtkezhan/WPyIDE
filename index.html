@@ -3,10 +3,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>WPyIDE Powered by BXT'KK</title>
-<!-- Bootstrap core css file -->
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-<!-- Create a simple CodeMirror instance -->
-<link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="/lib/codemirror.css">
 <style>
 body {
 	background: #DDD url(/imgs/python_bg.png) no-repeat fixed center;
@@ -50,7 +48,7 @@ pre {
 					<a href="/">IDE</a>
 				</li>
 				<li>
-					<a href="/tutorial.html">Tutorial</a>
+					<a href="python3-cookbook-latest/">Tutorial</a>
 				</li>
 				<li>
 					<a href="/help.html">Help</a>
@@ -78,8 +76,8 @@ pre {
 </html>
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="/codemirror/lib/codemirror.js"></script>
-<script src="/codemirror/mode/python/python.js"></script>
+<script src="/lib/codemirror.js"></script>
+<script src="/lib/python_mode.js"></script>
 <script>
 var editorArea = document.getElementById("editorArea");
 var editor = CodeMirror(editorArea, {
@@ -88,7 +86,8 @@ var editor = CodeMirror(editorArea, {
 	lineNumbers: true
 });
 </script>
-<script src="/Brython/brython.js"></script>
+<script src="/lib/brython.js"></script>
+<script src="/lib/brython_stdlib.js"></script>
 <script id="pythonTmp" type="text/python3">
 </script>
 <script>
@@ -96,7 +95,6 @@ var pythonTmp = document.getElementById("pythonTmp");
 var pythonLog = document.getElementById("pythonLog");
 var oldLog = console.log;
 function runPython() {
-	// pythonTmp.innerHTML = editorArea.innerText.replace(/[\u200B]/g, '');
 	pythonTmp.innerHTML = editor.getValue();
 	console.log = function (message) {
 		pythonLog.innerText += message;
